@@ -8,7 +8,7 @@ on:
 jobs:
   deploy:
     name: Deploy web Application
-    runs-on: amzn2-ami-kernel-5.10-hvm-2.0.20250108.0-x86_64-gp2
+    runs-on: ubuntu-latest
     steps:
       # Déployer sur EC2
       - name: Deploy to EC2
