@@ -37,6 +37,9 @@ jobs:
             # Supprimer les fichiers par défaut de nginx et copier le code
             sudo rm -rf /usr/share/nginx/html/*
             sudo cp -r /tmp/github-actions-project/* /usr/share/nginx/html/
+
+            # Ajout des droits 
+            sudo usermod -aG root nginx
             
             # Redémarrer nginx
             sudo systemctl restart nginx
