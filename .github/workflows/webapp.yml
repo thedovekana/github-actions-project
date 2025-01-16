@@ -32,14 +32,10 @@ jobs:
             sudo systemctl start nginx
             
             # Cloner le dépôt
-            sudo git clone https://github.com/thedovekana/github-actions-project.git /tmp/
+            sudo rm -rf /tmp/github-actions-project && sudo git clone https://github.com/thedovekana/github-actions-project.git 
             
             # Supprimer les fichiers par défaut de nginx et copier le code
-            sudo rm -rf /usr/share/nginx/html/*
-            sudo cp -r /tmp/github-actions-project/* /usr/share/nginx/html/
-
-            # Ajout des droits 
-            #sudo chmod -R 755 /usr/share/nginx/html/
-            
+            sudo rm -rf /usr/share/nginx/html/* && sudo cd /tmp/github-actions-project/ && cp -r *  /usr/share/nginx/html/
+             
             # Redémarrer nginx
             sudo systemctl restart nginx
