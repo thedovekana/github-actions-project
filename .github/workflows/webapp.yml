@@ -23,10 +23,10 @@ jobs:
             sudo yum update -y 
             
             # Installer nginx et git
-            sudo yum install -y nginx git
+            sudo amazon-linux-extras install nginx1
             
             # Activer le service nginx
-            sudo systemctl enable nginx
+            sudo systemctl enable nginx1
             
             # Démarrer le service nginx
             sudo systemctl start nginx
