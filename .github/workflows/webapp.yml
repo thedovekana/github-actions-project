@@ -33,7 +33,7 @@ jobs:
             
             # Cloner le dépôt  
             sudo rm -rf /tmp/github-actions-project
-            sudo git clone https://github.com/thedovekana/github-actions-project.git /tmp/github-actions-project.git
+            sudo git clone https://github.com/thedovekana/github-actions-project.git /tmp/github-actions-project
             
             # Supprimer les fichiers par défaut de nginx et copier le code
              sudo rm -rf /usr/share/nginx/html/*
