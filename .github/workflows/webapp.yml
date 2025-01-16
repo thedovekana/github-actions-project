@@ -1,0 +1,42 @@
+name: CI/CD for webapp
+
+on:
+  push:
+    branches:
+      - master  # Trigger on pushes to the main branch
+
+jobs:
+  deploy:
+    name: Deploy web Application
+    runs-on: ubuntu-22.04
+    steps:
+      # Déployer sur EC2
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_KEY }}
+          port: 22
+          script: |
+            # Mettre à jour les paquets
+            sudo apt-get update
+            
+            # Installer nginx et git
+            sudo apt-get install -y nginx git
+            
+            # Activer le service nginx
+            sudo systemctl enable nginx
+            
+            # Démarrer le service nginx
+            sudo systemctl start nginx
+            
+            # Cloner le dépôt
+            sudo git clone https://github.com/thedovekana/github-actions-project.git /tmp/github-actions-project
+            
+            # Supprimer les fichiers par défaut de nginx et copier le code
+            sudo rm -rf /usr/share/nginx/html/*
+            sudo cp -r /tmp/github-actions-project/* /usr/share/nginx/html/
+            
+            # Redémarrer nginx
+            sudo systemctl restart nginx
