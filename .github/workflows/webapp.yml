@@ -8,7 +8,7 @@ on:
 jobs:
   deploy:
     name: Deploy web Application
-    runs-on: ubuntu-22.04
+    runs-on: amzn2-ami-kernel-5.10-hvm-2.0.20250108.0-x86_64-gp2
     steps:
       # Déployer sur EC2
       - name: Deploy to EC2
@@ -20,10 +20,10 @@ jobs:
           port: 22
           script: |
             # Mettre à jour les paquets
-            sudo apt-get update
+            sudo yum update -y 
             
             # Installer nginx et git
-            sudo apt-get install -y nginx git
+            sudo yum install -y nginx git
             
             # Activer le service nginx
             sudo systemctl enable nginx
@@ -32,10 +32,10 @@ jobs:
             sudo systemctl start nginx
             
             # Cloner le dépôt
-            sudo rm -rf /tmp/github-actions-project && sudo git clone https://github.com/thedovekana/github-actions-project.git 
+            cd /tmp/ && git clone https://github.com/thedovekana/github-actions-project.git  
             
             # Supprimer les fichiers par défaut de nginx et copier le code
-            sudo rm -rf /usr/share/nginx/html/* && sudo cd /tmp/github-actions-project/ && cp -r *  /usr/share/nginx/html/
+             sudo rm -rf /usr/share/nginx/html/* && cp -r /tmp/github-actions-project/*  /usr/share/nginx/html/
              
             # Redémarrer nginx
             sudo systemctl restart nginx
